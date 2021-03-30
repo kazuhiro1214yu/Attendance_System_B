@@ -1,5 +1,7 @@
 # README
 
+勤怠システムBの開発　がんばろー！
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
