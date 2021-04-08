@@ -28,6 +28,7 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
   
+  
   # 以下、重要な説明
   # attr_accessorの　remember-token　に上で作成したランダムなトークン「User.new_token」を入れる
   # update_attributeメソッドで、Usersテーブルカラムである「remember_digest(ハッシュ化されたトークンを保存されるカラム)」に値を入れる
@@ -38,9 +39,14 @@ class User < ApplicationRecord
   # 補足 update_attributesではなく「attribute(sがない)」である理由は、バリデーションを素通りさせるため。
   #      この段階ではユーザーのパスワードなどにアクセスできないため、素通りさせる必要がある
   
+  # 永続セッションのためハッシュ化したトークンをデータベースに記憶します。
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
   end 
   
+  # トークンがダイジェストと一致すればtrueを返します。
+  def authenticated?(remember_token)
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
 end
