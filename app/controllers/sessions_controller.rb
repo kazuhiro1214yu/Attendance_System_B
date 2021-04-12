@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password]) #userがtrueで、かつそのuserのパスワードが正しい場合、
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user) #ログイン画面で「ログイン情報保持のチェックボックス」をチェックしたか否か
-      redirect_to user
+      redirect_back_or user
     else
       flash.now[:danger] = "認証に失敗しました。"
       render :new

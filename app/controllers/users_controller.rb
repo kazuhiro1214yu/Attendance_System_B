@@ -52,6 +52,7 @@ class UsersController < ApplicationController
     # ログイン済みのユーザーか確認します。
     def logged_in_user
       unless logged_in?
+        store_location
         flash[:danger] = "ログインしてください。"
         redirect_to login_url
       end
@@ -61,5 +62,5 @@ class UsersController < ApplicationController
     def correct_user
       # @user = User.find(params[:id])    before_actionのset_userで「@user」をまとめて定義したので不要
       redirect_to(root_url) unless current_user?(@user)
-    end 
+    end
 end
