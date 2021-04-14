@@ -55,6 +55,12 @@ class UsersController < ApplicationController
   
   # 基本勤務時間の編集画面（モーダルウインドウ）から入力した情報を更新するためのアクション
   def update_basic_info
+    if @user.update_attributes(basic_info_params)
+      flash[:success] = "#{@user.name}の基本情報を更新しました。"
+    else
+      flash[:danger] = "#{@user.name}の更新は失敗しました。<br>" + @user.errors.full_messages.join("<br>")
+    end
+    redirect_to users_url
   end 
   
   
@@ -62,6 +68,12 @@ class UsersController < ApplicationController
   
     def user_params
       params.require(:user).permit(:name, :email, :department, :password, :password_confirmation)
+    end 
+    
+    # モーダルウインドウを使って「基本情報編集」を表示。そこで編集した情報を更新させる必要がある
+    # ストロングパラメータを利用して、セキュリティを高める必要あり。そのための設定
+    def basic_info_params
+      params.require(:user).permit(:department, :basic_time, :work_time)
     end 
     
     # paramsハッシュからユーザーを取得します。    

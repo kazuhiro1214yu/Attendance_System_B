@@ -1,2 +1,6 @@
+<!--モーダルウインドウを表示させるためのjs-->
+<!--renderで「_edit_basic_info.html.erb」をモーダルで表示させる-->
+<!--表示させる場所（タイミング）は、「index.html.erb」ファイルの中の「remote: true」で実行-->
+
 $("#edit-basic-info").html("<%= escape_javascript(render 'edit_basic_info') %>");
 $("#edit-basic-info").modal("show");
