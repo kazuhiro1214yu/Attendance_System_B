@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  # UserモデルはÀttendanceモデルに対して「1対多」の関係。それを示す記述
+  # 更に、もし「Userモデル（親）」が削除された場合、関連する「Attendanceモデル（子、勤怠情報）」も削除されるための記述
+  has_many :attendances, dependent: :destroy
   
   # 「remember_token」という仮想の属性を作成します。
   attr_accessor :remember_token
