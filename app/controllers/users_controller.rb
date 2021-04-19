@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
+  before_action :set_one_month, only: :show
 
   def index
     @users = User.paginate(page: params[:page])
@@ -10,11 +11,13 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])    before_actionのset_userで「@user」をまとめて定義したので不要
-    
-    # 月の初日を取得。「Date.current」は「当日」を取得できます。そこにrailsメソッドの「beginning_of_month」を繋ぐと「当月の初日」を取得できる。
-    @first_day = Date.current.beginning_of_month
-    # @first_day（つまり「当月の初日」）を取得することで、railsメソッドの「end_of_month」で「当月の終日」を取得できる。
-    @last_day = @first_day.end_of_month
+
+  # 以下、application.controllerの「set_one_month」に記述したため、ここへの記述は不要
+  # set_one_monthはbefore_actionで実行させる。
+    # # 月の初日を取得。「Date.current」は「当日」を取得できます。そこにrailsメソッドの「beginning_of_month」を繋ぐと「当月の初日」を取得できる。
+    # @first_day = Date.current.beginning_of_month
+    # # @first_day（つまり「当月の初日」）を取得することで、railsメソッドの「end_of_month」で「当月の終日」を取得できる。
+    # @last_day = @first_day.end_of_month
   end
   
   def new

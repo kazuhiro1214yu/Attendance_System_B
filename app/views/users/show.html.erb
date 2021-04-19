@@ -33,10 +33,10 @@
     
     <tbody>
       <!--each文で「当月の日」を取り出し、月初から月末までを一日ずつブロック変数の「day」でtdに割当-->
-      <% (@first_day..@last_day).each do |day| %>
+      <% @attendances.each do |day| %>
         <tr>
-          <td><%= l(day, format: :short) %></td>
-          <td><%= $days_of_the_week[day.wday] %></td>
+          <td><%= l(day.worked_on, format: :short) %></td>
+          <td><%= $days_of_the_week[day.worked_on.wday] %></td>
           <td></td>
           <td></td>
           <td></td>
@@ -44,5 +44,6 @@
           <td></td>
         </tr>
       <% end %>
+    </tbody>
   </table>
 </div>
