@@ -16,3 +16,33 @@
     </tr>
   </table>
 </div>
+
+<div>
+  <table class="table table-bordered table-condensed table-hover" id="table-attendances">
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>曜日</th>
+        <th>勤怠登録</th>
+        <th>出勤時間</th>
+        <th>退勤時間</th>
+        <th>在社時間</th>
+        <th>備考</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <!--each文で「当月の日」を取り出し、月初から月末までを一日ずつブロック変数の「day」でtdに割当-->
+      <% (@first_day..@last_day).each do |day| %>
+        <tr>
+          <td><%= l(day, format: :short) %></td>
+          <td><%= $days_of_the_week[day.wday] %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+  </table>
+</div>

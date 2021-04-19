@@ -10,6 +10,11 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])    before_actionのset_userで「@user」をまとめて定義したので不要
+    
+    # 月の初日を取得。「Date.current」は「当日」を取得できます。そこにrailsメソッドの「beginning_of_month」を繋ぐと「当月の初日」を取得できる。
+    @first_day = Date.current.beginning_of_month
+    # @first_day（つまり「当月の初日」）を取得することで、railsメソッドの「end_of_month」で「当月の終日」を取得できる。
+    @last_day = @first_day.end_of_month
   end
   
   def new
