@@ -33,7 +33,7 @@
     
     <tbody>
       <!--each文で「当月の日」を取り出し、月初から月末までを一日ずつブロック変数の「day」でtdに割当-->
-      <% @attendances.each do |day| %>
+      <% @attendances.each do |day| %> 
         <tr>
           <td><%= l(day.worked_on, format: :short) %></td>
           <td><%= $days_of_the_week[day.worked_on.wday] %></td>
