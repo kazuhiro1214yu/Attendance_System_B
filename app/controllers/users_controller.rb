@@ -18,6 +18,8 @@ class UsersController < ApplicationController
     # @first_day = Date.current.beginning_of_month
     # # @first_day（つまり「当月の初日」）を取得することで、railsメソッドの「end_of_month」で「当月の終日」を取得できる。
     # @last_day = @first_day.end_of_month
+    
+    @worked_sum = @attendances.where.not(started_at: nil).count
   end
   
   def new
