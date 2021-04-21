@@ -1,4 +1,8 @@
 class AttendancesController < ApplicationController
+  before_action :set_user, only: :edit_one_month
+  before_action :logged_in_user, only: [:update, :edit_one_month]
+  before_action :set_one_month, only: :edit_one_month
+  
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
 
   # show.htmlで「勤怠登録」を押した場合、その情報を保存するためのアクション。
@@ -21,4 +25,9 @@ class AttendancesController < ApplicationController
     end
     redirect_to @user
   end
+  
+  # 勤怠編集用ページへのアクション
+  def edit_one_month
+  end 
+  
 end
