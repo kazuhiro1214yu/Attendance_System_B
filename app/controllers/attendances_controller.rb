@@ -30,4 +30,8 @@ class AttendancesController < ApplicationController
   def edit_one_month
   end 
   
+  # 勤怠編集用ページから実際に更新するためのアクション
+  def update_one_month
+  end 
+  
 end
