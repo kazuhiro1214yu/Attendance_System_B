@@ -32,10 +32,25 @@ class AttendancesController < ApplicationController
   
   # 勤怠編集用ページから実際に更新するためのアクション
   def update_one_month
-  end 
+  # トランザクションを開始します。
+    ActiveRecord::Base.transaction do
+    # データベースの操作を保障したい処理をここに記述します。
+      attendances_params.each do |id, item|
+        attendance = Attendance.find(id)
+        attendance.update_attributes!(item)
+      end 
+    end
+    # トランザクションによる例外処理の分岐です。
+    flash[:success] = "1ヶ月分の勤怠情報を更新しました。"
+    redirect_to user_url(date: params[:date])
+  rescue ActiveRecord::RecordInvalid
+    # ここに例外が発生した時の処理を記述します。
+    flash[:danger] = "無効な入力データがあったため、更新をキャンセルしました。"
+    redirect_to attendances_edit_one_month_user_url(date: params[:date])
+  end
+  
   
   private
-    
     
     def attendances_params
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
